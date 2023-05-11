@@ -176,6 +176,12 @@ async function main() {
     const versionCode = process.argv[3]; // Access the second command-line argument
     const versionName = process.argv[4]; // Access the third command-line argument
 
+    // check it any of the arguments is 'help'
+    if (path === 'help' || versionCode === 'help' || versionName === 'help') {
+      console.log('Usage: npx rn-versions-bumper <path-to-project-root> <versionCode> <versionName>');
+      return;
+    }
+
     if (!path) {
       console.error('Please provide the path to the project.');
       return;
