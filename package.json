@@ -4,7 +4,7 @@
   "main": "bin/index.mjs",
   "license": "MIT",
   "bin": {
-    "rn-versions-bumper": "bin/index.mjs"
+    "rn-versions-bumper": "./bin/index.mjs"
   },
   "dependencies": {
     "fs-extra": "^11.1.1",
