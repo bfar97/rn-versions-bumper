@@ -120,7 +120,7 @@ async function bumpExpoplist(path, versionName) {
   });
 }
 
-async function bumpAppJson(path, versionName) {
+async function bumpAppJson(path, versionCode, versionName) {
   const appJsonPath = `${path}/app.json`;
   fs.readFile(appJsonPath, 'utf8', (err, data) => {
     if (err) {
@@ -129,10 +129,23 @@ async function bumpAppJson(path, versionName) {
     }
 
     // Update runtimeVersion
-    const updatedContent = data.replace(
+    let updatedContent = data
+    updatedContent = updatedContent.replace(
       /"runtimeVersion": "([^"]+)"/,
       `"runtimeVersion": "${versionName}"`
     );
+
+    updatedContent = updatedContent.replace(
+      /"buildNumber":\s*"[^"]+"/,
+      `"buildNumber": "${versionCode}"`
+    );
+
+    // Update versionCode
+    updatedContent = updatedContent.replace(
+      /"versionCode":\s*\d+/,
+      `"versionCode": ${versionCode}`
+    );
+
 
     // Write the updated contents back to the app.json file
     fs.writeFile(appJsonPath, updatedContent, 'utf8', (writeErr) => {
@@ -201,7 +214,7 @@ async function main() {
     await bumpBuildGradle(path, versionCode, versionName);
     await bumpInfoplist(path, versionCode, versionName);
     await bumpExpoplist(path, versionName);
-    await bumpAppJson(path, versionName);
+    await bumpAppJson(path, versionCode, versionName);
     await appConfig(path, versionName);
   } catch (error) {
     console.error('Error:', error);
