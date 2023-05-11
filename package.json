@@ -1,7 +1,7 @@
 {
   "name": "rn-versions-bumper",
   "version": "1.0.1",
-  "main": "bin/index.mjs",
+  "main": "./bin/index.mjs",
   "license": "MIT",
   "bin": {
     "rn-versions-bumper": "./bin/index.mjs"
